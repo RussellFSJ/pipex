@@ -1,0 +1,16 @@
+// pdf files
+*.pdf
+
+// executables
+*.out
+
+// build files
+/build
+*.o
+
+// libraries
+*.a
+*.so
+
+// vs code settings
+.vscode

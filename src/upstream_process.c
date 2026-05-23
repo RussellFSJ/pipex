@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   upstream_process.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/21 17:37:01 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/24 00:08:28 by rfoo             ###   ########.fr       */
+/*   Created: 2026/05/23 23:42:40 by rfoo              #+#    #+#             */
+/*   Updated: 2026/05/24 00:21:33 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "pipex.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <errno.h>
-# include <sys/wait.h>
-# include "libft.h"
-# include <fcntl.h>
+int	upstream_process(char *in_file, char **cmd1)
+{
+	int	fd;
 
-
-int	pipex(char *in_file, char *cmd1, char *out_file, char *cmd2);
-
-#endif
+	fd = open(in_file, O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Failed to open file1.");
+		exit(1);
+	}
+	if (dup2(fd, STDIN_FILENO) == -1)
+	{
+		perror("Failed to copy to STDIN.");
+		exit(1);
+	}
+	close(fd);
+	execve(cmd1[0], cmd1, NULL);
+	return (0);
+}

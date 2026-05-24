@@ -6,7 +6,7 @@
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 17:37:01 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/24 00:08:28 by rfoo             ###   ########.fr       */
+/*   Updated: 2026/05/24 15:43:59 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include "libft.h"
 # include <fcntl.h>
 
-
-int	pipex(char *in_file, char *cmd1, char *out_file, char *cmd2);
+void	upstream_process(char *in_file, char **cmd1, char **envp);
+void	downstream_process(char *out_file, char **cmd2, char **envp);
+int		pipex(char **argv, char **envp);
 
 #endif

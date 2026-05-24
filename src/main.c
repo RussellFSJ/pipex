@@ -6,15 +6,15 @@
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 17:36:20 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/23 23:48:26 by rfoo             ###   ########.fr       */
+/*   Updated: 2026/05/24 15:14:46 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	if (!argc == 5)
-		return (0);
-	return (pipex(argv[1], argv[2], argv[4], argv[3]));
+		return (0);	
+	return (pipex(**argv, **envp));
 }

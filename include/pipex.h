@@ -6,7 +6,7 @@
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 17:37:01 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/28 00:04:47 by rfoo             ###   ########.fr       */
+/*   Updated: 2026/05/29 06:12:56 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ typedef struct s_pipex
 	char	*out_file;
 }	t_pipex;
 
-void	upstream_process(char *in_file, char **cmd1, char **envp);
-void	downstream_process(char *out_file, char **cmd2, char **envp);
+void	upstream_process(int pipefd[2], t_pipex *px);
+void	downstream_process(int pipefd[2], t_pipex *px);
 t_pipex	*init_pipex(char	**argv, char **envp);
+void	close_pipefd(int pipefd[2]);
 void	handle_perror_exit(char **err_msg);
-int		pipex(t_pipex *px);
+void	pipex(t_pipex *px);
 
 #endif

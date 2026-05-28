@@ -6,22 +6,25 @@
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 23:42:40 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/28 00:11:45 by rfoo             ###   ########.fr       */
+/*   Updated: 2026/05/29 06:09:21 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	upstream_process(char *in_file, char **cmd1, char **envp)
+void	upstream_process(int pipefd[2], t_pipex *px)
 {
 	int	fd;
 
-	fd = open(in_file, O_RDONLY);
+	if (dup2(pipefd[1], STDOUT_FILENO) == -1)
+		handle_perror_exit("Failed to redirect to STDOUT.");
+	close_pipefd(pipefd);
+	fd = open(px->in_file, O_RDONLY);
 	if (fd < 0)
 		handle_perror_exit("Failed to open file1.");
 	if (dup2(fd, STDIN_FILENO) == -1)
 		handle_perror_exit("Failed to redirect to STDIN.");
 	close(fd);
-	execve(cmd1[0], cmd1, envp);
+	execve(px->cmd1[0], px->cmd1, px->envp);
 	handle_perror_exit("Failed to execute cmd1.");
 }

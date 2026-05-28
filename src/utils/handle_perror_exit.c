@@ -6,13 +6,13 @@
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 00:03:14 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/28 00:05:06 by rfoo             ###   ########.fr       */
+/*   Updated: 2026/05/29 06:17:13 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	handle_perror_exit(char **err_msg)
+void	handle_perror_exit(const char *err_msg)
 {
 	perror(err_msg);
 	exit(1);

@@ -6,13 +6,11 @@
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 22:39:08 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/29 06:11:32 by rfoo             ###   ########.fr       */
+/*   Updated: 2026/05/29 06:14:28 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-static void	close_pipefd(int pipefd[2]);
 
 void	pipex(t_pipex *px)
 {

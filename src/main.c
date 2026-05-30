@@ -6,7 +6,7 @@
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 17:36:20 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/29 06:16:05 by rfoo             ###   ########.fr       */
+/*   Updated: 2026/05/30 22:48:15 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	px = init_pipex(argv, envp);
 	pipex(px);
+	free_pipex(px);
 	return (0);
 }

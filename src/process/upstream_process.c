@@ -6,7 +6,7 @@
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 23:42:40 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/29 06:09:21 by rfoo             ###   ########.fr       */
+/*   Updated: 2026/05/30 18:21:02 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	upstream_process(int pipefd[2], t_pipex *px)
 	if (dup2(fd, STDIN_FILENO) == -1)
 		handle_perror_exit("Failed to redirect to STDIN.");
 	close(fd);
-	execve(px->cmd1[0], px->cmd1, px->envp);
+	execve(get_cmd_path(px->cmd1[0], px->envp), px->cmd1, px->envp);
 	handle_perror_exit("Failed to execute cmd1.");
 }

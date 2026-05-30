@@ -6,7 +6,7 @@
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 15:19:22 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/30 17:14:24 by rfoo             ###   ########.fr       */
+/*   Updated: 2026/05/30 17:38:02 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,13 @@ char	*get_cmd_path(char *cmd, char **envp)
 
 static char	*get_all_paths(char **envp)
 {
-	char	*all_paths;
-
 	while (*envp)
 	{
 		if (ft_strncmp(*envp, "PATH=", 5) == 0)
-		{
-			all_paths = *envp + 5;
-			break;
-		}
+			return(*envp + 5);
 		envp++;
 	}
-	if (!all_paths)
-		return (NULL);
-	return (all_paths);
+	return (NULL);
 }
 
 static char	*join_cmd_path(const char *dir, const char *cmd)

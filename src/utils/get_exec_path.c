@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd_path.c                                     :+:      :+:    :+:   */
+/*   get_exec_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/30 15:19:22 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/30 17:38:02 by rfoo             ###   ########.fr       */
+/*   Created: 2026/05/30 23:02:15 by rfoo              #+#    #+#             */
+/*   Updated: 2026/05/30 23:04:23 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 static char	*get_all_paths(char **envp);
+static char	*get_cmd_path(char **paths, const char *cmd);
 static char	*join_cmd_path(const char *dir, const char *cmd);
 
-char	*get_cmd_path(char *cmd, char **envp)
+char	*get_exec_path(const char *cmd, char **envp)
 {
 	char	*all_paths;
 	char	**paths;
@@ -27,15 +28,11 @@ char	*get_cmd_path(char *cmd, char **envp)
 	paths = ft_split(all_paths, ':');
 	if (!paths)
 		return (NULL);
-	while (*paths)
-	{
-		cmd_path = join_cmd_path(*paths, cmd);
-		if (access(cmd_path, X_OK) == 0)
-			return (cmd_path);
-		free(cmd_path);
-		paths++;
-	}
-	return (NULL);
+	cmd_path = get_cmd_path(paths, cmd);
+	if (!cmd_path)
+		return (NULL);
+	free_str_array(paths);
+	return (cmd_path);
 }
 
 static char	*get_all_paths(char **envp)
@@ -43,10 +40,29 @@ static char	*get_all_paths(char **envp)
 	while (*envp)
 	{
 		if (ft_strncmp(*envp, "PATH=", 5) == 0)
-			return(*envp + 5);
+			return (*envp + 5);
 		envp++;
 	}
 	return (NULL);
+}
+
+static char	*get_cmd_path(char **paths, const char *cmd)
+{
+	size_t	i;
+	char	*cmd_path;
+
+	i = 0;
+	while (paths[i])
+	{
+		cmd_path = join_cmd_path(paths[i], cmd);
+		if (access(cmd_path, X_OK) == 0)
+			break ;
+		free(cmd_path);
+		i++;
+	}
+	if (!cmd_path)
+		return (NULL);
+	return (cmd_path);
 }
 
 static char	*join_cmd_path(const char *dir, const char *cmd)

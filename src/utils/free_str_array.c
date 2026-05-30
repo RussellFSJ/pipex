@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_pipex.c                                       :+:      :+:    :+:   */
+/*   free_str_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfoo <rfoo@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/27 23:43:26 by rfoo              #+#    #+#             */
-/*   Updated: 2026/05/30 23:01:46 by rfoo             ###   ########.fr       */
+/*   Created: 2026/05/30 23:04:06 by rfoo              #+#    #+#             */
+/*   Updated: 2026/05/30 23:04:08 by rfoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-t_pipex	*init_pipex(char **argv, char **envp)
+void	free_str_array(char **arr)
 {
-	t_pipex	*px;
+	int	i;
 
-	px = malloc(sizeof(t_pipex));
-	if (!px)
-		return (NULL);
-	px->cmd1 = ft_split(argv[2], ' ');
-	px->cmd2 = ft_split(argv[3], ' ');
-	px->envp = envp;
-	px->in_file = argv[1];
-	px->out_file = argv[4];
-	return (px);
+	if (!arr)
+		return ;
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
 }
